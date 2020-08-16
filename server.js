@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const date = require(_dirname + "/date.js");
 
 const app = express();
 
@@ -45,7 +44,6 @@ const defaultItems = [item1, item2, item3];
 //ROUTES
 //GET REQUEST (READ OPERATION)
 app.get("/", (req, res) => {
-  // const day = date();
   Item.find({}, function (err, foundItems) {
     if (foundItems === 0) {
       Item.insertMany(defaultItems, function (err) {
