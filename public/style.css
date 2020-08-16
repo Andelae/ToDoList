@@ -1,0 +1,98 @@
+body {
+  background: url("/background2.jpg") no-repeat center center fixed;
+  font-family: Helvetica, sans-serif;
+}
+
+.box {
+  max-width: 400px;
+  margin: 50px auto;
+  border-radius: 5px;
+}
+
+#heading {
+  background-color: #432344;
+  text-align: center;
+}
+
+h1 {
+  color: #f1f1f1;
+  padding: 10px;
+}
+
+.item {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+p {
+  margin: 0;
+  padding: 20px;
+  font-size: 30px;
+  font-weight: 200;
+  color: #432344;
+}
+
+.btn {
+  background-color: #432344;
+  color: white;
+  min-height: 50px;
+  border-color: transparent;
+  font-size: 30px;
+  padding-bottom: 6px;
+  border-width: 0;
+}
+
+.delete-btn {
+  background-color: #e7eefb;
+  color: #432344;
+  border-color: transparent;
+  border-radius: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #ff2525;
+}
+
+form.item {
+  text-align: center;
+  margin-left: 20px;
+}
+
+input[type="text"] {
+  text-align: center;
+  height: 60px;
+  top: 10px;
+  border: none;
+  font-size: 20px;
+  background: transparent;
+  font-weight: 200;
+  width: 313px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 0 #432344;
+}
+
+input:checked + p {
+  text-decoration: line-through;
+  text-decoration-color: #432344;
+}
+
+input[type="checkbox"] {
+  margin: 20px;
+}
+
+footer {
+  color: #432344;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* @media screen and (max-width: 1024px) { 
+    body {
+      
+    }
+  } */

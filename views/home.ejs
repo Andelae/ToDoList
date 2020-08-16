@@ -1,0 +1,33 @@
+<%- include("header") -%>
+
+<!-- HEADING/TITLE -->
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+<!-- ITEMS LIST -->
+<div class="box">
+  <!-- ARRAY TO ADD ITEMS TO LIST -->
+  <% newListItems.forEach(function(item){ %>
+
+  <div class="item">
+    <input type="checkbox">
+    <p><%= item.name %></p>
+
+    <!-- FORM TO DELETE ITEMS -->
+    <form action="/delete" method="POST">
+      <button class="delete-btn" type="submit" name="delete" value="<%= item._id %>">Delete</button>
+    </form>
+
+
+  </div>
+
+  <% }) %>
+
+  <!-- FORM -->
+  <form class="item" action="/" method="POST">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+    <button class="btn" type="submit" name="button">Add</button>
+  </form>
+</div>
+
+<%- include("footer") -%>
