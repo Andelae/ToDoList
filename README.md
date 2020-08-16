@@ -2,7 +2,7 @@
 Code Louisville Fullstack JavaScript Project
 
 ## Description of Project
-This application is a simple todo list that allows user to add, delete, or cross things off a list.  This is an application that demonstrates CRUD (create, read, update, delete) operations.  
+This application is a simple todo list that allows user to add, delete, or cross things off a list.  This is an application that demonstrates CRUD (create, read, update, delete) operations.  If user would like different list, then simply after localhost:3000 type / (any subject title you want for list title).  For example: localhost:3000/grocery, or localhost:3000/code.
 
 ### Built With
 -	HTML
