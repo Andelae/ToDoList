@@ -24,7 +24,7 @@ This application is a simple todo list that allows user to add, delete, or cross
 https://to-do-list-code-project.herokuapp.com/
 
 ### Author
-- Andelae McCoy
+ - **Andelae McCoy** 
 
 ### License
 This project is licensed under the MIT License
