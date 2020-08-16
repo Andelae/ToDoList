@@ -30,16 +30,23 @@ const itemsSchema = {
 const Item = mongoose.model("Item", itemsSchema);
 //MONGOOSE DOCUMENT
 const item1 = new Item({
-  name: "Item 1",
+  name: "Add Items to Your List!",
 });
 const item2 = new Item({
-  name: "Item 2",
+  name: "You Can Cross Items off once complete!",
 });
 const item3 = new Item({
-  name: "Item 3",
+  name: "Delete it off your List with the delete button!",
 });
 
 const defaultItems = [item1, item2, item3];
+
+const listSchema = {
+  name: String,
+  items: [itemsSchema],
+};
+
+const List = mongoose.model("List", listSchema);
 
 //ROUTES
 //GET REQUEST (READ OPERATION)
@@ -63,25 +70,75 @@ app.get("/", (req, res) => {
   });
 });
 
+//CREATE REQUEST (CREATE OPERATION)
+app.get("/:customListName", (req, res) => {
+  const customListName = req.params.customListName;
+
+  List.findOne({ name: customListName }, function (err, foundList) {
+    if (!err) {
+      if (!foundList) {
+        //CREATE NEW LIST
+        const list = new List({
+          name: customListName,
+          items: defaultItems,
+        });
+        list.save();
+        res.redirect("/" + customListName);
+      } else {
+        //SHOW EXISTING LIST
+        res.render("home", {
+          listTitle: foundList.name,
+          newListItems: foundList.items,
+        });
+      }
+    }
+  });
+});
+
 //POST REQUEST (UPDATE OPERATION)
 app.post("/", (req, res) => {
   const itemName = req.body.newItem;
+  const listName = req.body.button;
+
   const item = new Item({
     name: itemName,
   });
-  item.save();
-  res.redirect("/");
+
+  if (listName === "To Do List") {
+    item.save();
+    res.redirect("/");
+  } else {
+    List.findOne({ name: listName }, function (err, foundList) {
+      foundList.items.push(item);
+      foundList.save();
+      res.redirect("/" + listName);
+    });
+  }
 });
 
 //DELETE REQUEST (DELETE OPERATION)
 app.post("/delete", (req, res) => {
   const deleteItemId = req.body.delete;
-  Item.findByIdAndRemove(deleteItemId, function (err) {
-    if (!err) {
-      console.log("Successfully deleted item!");
-      res.redirect("/");
-    }
-  });
+  const listName = req.body.listName;
+
+  if (listName === "To Do List") {
+    Item.findByIdAndRemove(deleteItemId, function (err) {
+      if (!err) {
+        console.log("Successfully deleted item!");
+        res.redirect("/");
+      }
+    });
+  } else {
+    List.findOneAndUpdate(
+      { name: listName },
+      { $pull: { items: { _id: deleteItemId } } },
+      function (err, foundList) {
+        if (!err) {
+          res.redirect("/" + listName);
+        }
+      }
+    );
+  }
 });
 
 //PORT TO LISTEN
