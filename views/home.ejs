@@ -12,13 +12,11 @@
   <div class="item">
     <input type="checkbox">
     <p><%= item.name %></p>
-
     <!-- FORM TO DELETE ITEMS -->
     <form action="/delete" method="POST">
       <button class="delete-btn" type="submit" name="delete" value="<%= item._id %>">Delete</button>
+      <input type="hidden" name="listName" value="<%= listTitle %>">
     </form>
-
-
   </div>
 
   <% }) %>
@@ -26,7 +24,7 @@
   <!-- FORM -->
   <form class="item" action="/" method="POST">
     <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-    <button class="btn" type="submit" name="button">Add</button>
+    <button class="btn" type="submit" name="button" value="<%= listTitle %>">Add</button>
   </form>
 </div>
 
