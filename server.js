@@ -70,7 +70,7 @@ app.get("/", (req, res) => {
   });
 });
 
-//CREATE REQUEST (CREATE OPERATION)
+//GET REQUEST (CREATE OPERATION)
 app.get("/:customListName", (req, res) => {
   const customListName = req.params.customListName;
 
