@@ -19,7 +19,7 @@ This application is a simple todo list that allows user to add, delete, or cross
 4.	Run “npm start server.js” to begin the app server process
 5.	Open a localhost window to port 3000
 
-
+### Live Demo of App
 
 https://to-do-list-code-project.herokuapp.com/
 
