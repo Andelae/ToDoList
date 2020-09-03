@@ -25,24 +25,29 @@ mongoose.connect(
 // CREATE MONGOOSE SCHEMA
 const itemsSchema = {
   name: String,
+  checked: Boolean,
 };
 //MONGOOSE MODEL BASED ON SCHEMA
 const Item = mongoose.model("Item", itemsSchema);
 //MONGOOSE DOCUMENT
 const item1 = new Item({
   name: "Add Items to Your List!",
+  checked: false,
 });
 const item2 = new Item({
   name: "You Can Cross Items off once complete!",
+  checked: false,
 });
 const item3 = new Item({
   name: "Delete it off your List with the delete button!",
+  checked: false,
 });
 
 const defaultItems = [item1, item2, item3];
 
 const listSchema = {
   name: String,
+  checked: Boolean,
   items: [itemsSchema],
 };
 
@@ -71,31 +76,59 @@ app.get("/", (req, res) => {
 });
 
 //GET REQUEST (CREATE OPERATION)
-app.get("/:customListName", (req, res) => {
-  const customListName = req.params.customListName;
+// app.get("/:customListName", (req, res) => {
+//   const customListName = req.params.customListName;
 
-  List.findOne({ name: customListName }, function (err, foundList) {
-    if (!err) {
-      if (!foundList) {
-        //CREATE NEW LIST
-        const list = new List({
-          name: customListName,
-          items: defaultItems,
-        });
-        list.save();
-        res.redirect("/" + customListName);
+//   List.findOne({ name: customListName }, function (err, foundList) {
+//     if (!err) {
+//       if (!foundList) {
+//         //CREATE NEW LIST
+//         const list = new List({
+//           name: customListName,
+//           items: defaultItems,
+//         });
+//         list.save();
+//         res.redirect("/" + customListName);
+//       } else {
+//         //SHOW EXISTING LIST
+//         res.render("home", {
+//           listTitle: foundList.name,
+//           newListItems: foundList.items,
+//         });
+//       }
+//     }
+//   });
+// });
+
+app.use(bodyParser.json()); // for parsing application/json
+//POST REQUEST (UPDATE EDIT OPERATION)
+app.post("/edit", (req, res) => {
+  const editItemId = req.body.value;
+  const editItemCheck = req.body.checked;
+  const listName = req.body.listName;
+
+  if (listName === "To Do List") {
+    Item.findByIdAndUpdate(editItemId, { checked: editItemCheck }, function (
+      err
+    ) {
+      if (!err) {
+        res.redirect("/");
       } else {
-        //SHOW EXISTING LIST
-        res.render("home", {
-          listTitle: foundList.name,
-          newListItems: foundList.items,
-        });
+        res.redirect("/");
       }
-    }
-  });
+    });
+  } else {
+    Item.findByIdAndUpdate(editItemId, { checked: editItemCheck }, function (
+      err
+    ) {
+      if (!err) {
+        res.redirect("/");
+      }
+    });
+  }
 });
 
-//POST REQUEST (UPDATE OPERATION)
+//POST REQUEST (ADD ITEM)
 app.post("/", (req, res) => {
   const itemName = req.body.newItem;
   const listName = req.body.button;
